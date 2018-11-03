@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="default_padding">8dp</dimen>
+
+    <!--ArticleView-->
+    <dimen name="article_image_height">200dp</dimen>
+    <dimen name="thumb_padding_left">@dimen/default_padding</dimen>
+    <dimen name="thumb_padding_top">4dp</dimen>
+    <dimen name="description_padding_left">4dp</dimen>
+
+</resources>

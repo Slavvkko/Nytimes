@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/default_padding">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/thumb"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/article_image_height"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/sample" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="#96000000"
+                android:paddingStart="@dimen/thumb_padding_left"
+                android:paddingEnd="@dimen/thumb_padding_left"
+                android:paddingTop="@dimen/thumb_padding_top"
+                android:paddingBottom="@dimen/thumb_padding_top"
+                android:textColor="@android:color/white"
+                tools:text="Why Are Antiques So Cheap? Because Everyone Lives in the Kitchen"/>
+
+            <ImageButton
+                android:id="@+id/favoriteButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:padding="@dimen/default_padding"
+                android:background="?selectableItemBackgroundBorderless"
+                app:srcCompat="@drawable/ic_star_border_white_24dp"/>
+        </FrameLayout>
+
+        <!--<TextView-->
+            <!--android:id="@+id/date"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:paddingStart="@dimen/description_padding_left"-->
+            <!--android:paddingEnd="@dimen/description_padding_left"-->
+            <!--tools:text="2018-10-26"/>-->
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/thumb_padding_left"
+            android:paddingEnd="@dimen/thumb_padding_left"
+            android:paddingTop="@dimen/default_padding"
+            android:paddingBottom="@dimen/thumb_padding_top"
+            tools:text="Changes in the way we live in our homes have created a serious problem for the art and collectible industry."/>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

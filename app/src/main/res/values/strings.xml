@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Nytimes</string>
+
+    <string name="drawer_favorites">Favorites</string>
+    <string name="communication_error">Error retrieve articles</string>
+
+    <string name="mostemailed">Most Mailed</string>
+    <string name="mostshared">Most Shared</string>
+    <string name="mostviewed">Most Viewed</string>
+</resources>
