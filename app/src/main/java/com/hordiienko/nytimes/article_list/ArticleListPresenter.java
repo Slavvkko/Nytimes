@@ -17,6 +17,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
 public class ArticleListPresenter implements ArticleListContract.Presenter {
+    private static final int PAGE_SIZE = 20;
+
     private Context context;
     private ArticleListContract.View articleListView;
     private Disposable disposable;
@@ -94,7 +96,7 @@ public class ArticleListPresenter implements ArticleListContract.Presenter {
     private void loadData() {
         isLoading = true;
 
-        Single<List<Article>> singleNetwork = NetworkHelper.getInstance().getArticles(articleListView.getApiType(), loadedCount / 20 * 20);
+        Single<List<Article>> singleNetwork = NetworkHelper.getInstance().getArticles(articleListView.getApiType(), loadedCount / PAGE_SIZE * PAGE_SIZE);
         Single<List<Article>> singleSqlite = sqliteController.getFavoriteArticles();
 
         Single<List<Article>> singleFinal = Single.timer(1, TimeUnit.SECONDS).flatMap(aLong -> Single.zip(singleNetwork, singleSqlite, (articles, articles2) -> {
@@ -137,7 +139,7 @@ public class ArticleListPresenter implements ArticleListContract.Presenter {
         public void onSuccess(List<Article> articles) {
             endLoading();
 
-            int newArticlesCount = articles.size() - (loadedCount - (loadedCount / 20 * 20));
+            int newArticlesCount = articles.size() - (loadedCount - (loadedCount / PAGE_SIZE * PAGE_SIZE));
 
             if (newArticlesCount > 0) {
                 if (loadedCount > 0) {
