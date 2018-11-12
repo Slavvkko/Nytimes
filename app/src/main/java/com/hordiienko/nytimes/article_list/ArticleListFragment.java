@@ -126,7 +126,7 @@ public class ArticleListFragment extends Fragment implements ArticleListContract
     }
 
     @Override
-    public void onCLickFavorite(Article article, ImageView thumb) {
+    public void onClickFavorite(Article article, ImageView thumb) {
         articleListPresenter.onClickFavorite(article, thumb);
     }
 

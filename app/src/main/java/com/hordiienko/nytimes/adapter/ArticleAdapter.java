@@ -34,7 +34,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private ArticleListener articleListener;
 
     public interface ArticleListener {
-        void onCLickFavorite(Article article, ImageView thumb);
+        void onClickFavorite(Article article, ImageView thumb);
     }
 
     public ArticleAdapter(Context context, List<Article> articles, ArticleListener articleListener) {
@@ -150,7 +150,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         @OnClick(R.id.favoriteButton)
         void favoriteOnClick() {
-            articleListener.onCLickFavorite(articles.get(getAdapterPosition()), thumb);
+            articleListener.onClickFavorite(articles.get(getAdapterPosition()), thumb);
         }
 
         @Override

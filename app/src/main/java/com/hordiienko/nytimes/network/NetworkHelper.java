@@ -11,9 +11,19 @@ import io.reactivex.exceptions.Exceptions;
 import io.reactivex.schedulers.Schedulers;
 
 public class NetworkHelper {
+    private static NetworkHelper instance;
+
+    public static NetworkHelper getInstance() {
+        if (instance == null) {
+            instance = new NetworkHelper();
+        }
+
+        return instance;
+    }
+
     private NytimesInterface nytimesInterface;
 
-    public NetworkHelper() {
+    private NetworkHelper() {
         nytimesInterface = RetrofitClient.getRetrofit().create(NytimesInterface.class);
     }
 

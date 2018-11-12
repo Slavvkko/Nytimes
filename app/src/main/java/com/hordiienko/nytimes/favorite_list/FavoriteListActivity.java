@@ -99,7 +99,7 @@ public class FavoriteListActivity extends AppCompatActivity implements FavoriteL
     }
 
     @Override
-    public void onCLickFavorite(Article article, ImageView thumb) {
+    public void onClickFavorite(Article article, ImageView thumb) {
         favoriteListPresenter.onClickRemoveFavorite(article);
     }
 }

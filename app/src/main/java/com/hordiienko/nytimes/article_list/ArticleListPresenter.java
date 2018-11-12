@@ -20,7 +20,6 @@ public class ArticleListPresenter implements ArticleListContract.Presenter {
     private Context context;
     private ArticleListContract.View articleListView;
     private Disposable disposable;
-    private NetworkHelper networkHelper;
     private SqliteController sqliteController;
 
     private int loadedCount;
@@ -32,7 +31,6 @@ public class ArticleListPresenter implements ArticleListContract.Presenter {
         this.context = context;
         articleListView = view;
 
-        networkHelper = new NetworkHelper();
         sqliteController = new SqliteController(context);
     }
 
@@ -96,7 +94,7 @@ public class ArticleListPresenter implements ArticleListContract.Presenter {
     private void loadData() {
         isLoading = true;
 
-        Single<List<Article>> singleNetwork = networkHelper.getArticles(articleListView.getApiType(), loadedCount / 20 * 20);
+        Single<List<Article>> singleNetwork = NetworkHelper.getInstance().getArticles(articleListView.getApiType(), loadedCount / 20 * 20);
         Single<List<Article>> singleSqlite = sqliteController.getFavoriteArticles();
 
         Single<List<Article>> singleFinal = Single.timer(1, TimeUnit.SECONDS).flatMap(aLong -> Single.zip(singleNetwork, singleSqlite, (articles, articles2) -> {
