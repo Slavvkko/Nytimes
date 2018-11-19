@@ -19,6 +19,7 @@ import com.hordiienko.nytimes.model.Article;
 import com.hordiienko.nytimes.utils.GlideApp;
 
 import java.io.File;
+import java.util.LinkedList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -30,17 +31,18 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private final int VIEW_TYPE_PROGRESS = 0;
 
     private Context context;
-    private List<Article> articles;
+    private List<Article> articleList;
     private ArticleListener articleListener;
 
     public interface ArticleListener {
         void onClickFavorite(Article article, ImageView thumb);
     }
 
-    public ArticleAdapter(Context context, List<Article> articles, ArticleListener articleListener) {
+    public ArticleAdapter(Context context, ArticleListener articleListener) {
         this.context = context;
-        this.articles = articles;
         this.articleListener = articleListener;
+
+        articleList = new LinkedList<>();
     }
 
     @NonNull
@@ -56,7 +58,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
         if (viewHolder instanceof ArticleViewHolder) {
-            Article article = articles.get(position);
+            Article article = articleList.get(position);
             ArticleViewHolder articleHolder = (ArticleViewHolder) viewHolder;
 
             articleHolder.title.setText(article.getTitle());
@@ -100,12 +102,33 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public int getItemViewType(int position) {
-        return articles.get(position) == null ? VIEW_TYPE_PROGRESS : VIEW_TYPE_ITEM;
+        return articleList.get(position) == null ? VIEW_TYPE_PROGRESS : VIEW_TYPE_ITEM;
     }
 
     @Override
     public int getItemCount() {
-        return articles.size();
+        return articleList.size();
+    }
+
+    public void setData(List<Article> articles) {
+        articleList.clear();
+        appendData(articles);
+    }
+
+    public void appendData(List<Article> articles) {
+        articleList.addAll(articles);
+        notifyDataSetChanged();
+    }
+
+    public void updateArticle(Article article) {
+        notifyItemChanged(articleList.indexOf(article));
+    }
+
+    public void removeArticle(Article article) {
+        int position = articleList.indexOf(article);
+
+        articleList.remove(position);
+        notifyItemRemoved(position);
     }
 
     public void updateContext(Context context) {
@@ -113,14 +136,14 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     public void addLoadingFooter() {
-        articles.add(null);
-        notifyItemInserted(articles.size() - 1);
+        articleList.add(null);
+        notifyItemInserted(articleList.size() - 1);
     }
 
     public void removeLoadingFooter() {
-        int position = articles.size() - 1;
+        int position = articleList.size() - 1;
 
-        articles.remove(position);
+        articleList.remove(position);
         notifyItemRemoved(position);
     }
 
@@ -150,13 +173,13 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         @OnClick(R.id.favoriteButton)
         void favoriteOnClick() {
-            articleListener.onClickFavorite(articles.get(getAdapterPosition()), thumb);
+            articleListener.onClickFavorite(articleList.get(getAdapterPosition()), thumb);
         }
 
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(context, ArticleActivity.class);
-            intent.putExtra(ArticleActivity.EXTRA_ITEM, articles.get(getAdapterPosition()));
+            intent.putExtra(ArticleActivity.EXTRA_ITEM, articleList.get(getAdapterPosition()));
 
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
                     (Activity) context,

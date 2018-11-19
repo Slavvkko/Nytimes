@@ -15,7 +15,6 @@ import com.hordiienko.nytimes.R;
 import com.hordiienko.nytimes.adapter.ArticleAdapter;
 import com.hordiienko.nytimes.model.Article;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -31,7 +30,6 @@ public class FavoriteListActivity extends AppCompatActivity implements FavoriteL
     @BindView(R.id.recyclerArticles)
     RecyclerView recyclerView;
 
-    private List<Article> articleList;
     private ArticleAdapter articleAdapter;
     private FavoriteListContract.Presenter favoriteListPresenter;
 
@@ -47,8 +45,7 @@ public class FavoriteListActivity extends AppCompatActivity implements FavoriteL
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
-        articleList = new LinkedList<>();
-        articleAdapter = new ArticleAdapter(this, articleList, this);
+        articleAdapter = new ArticleAdapter(this, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(articleAdapter);
 
@@ -81,16 +78,12 @@ public class FavoriteListActivity extends AppCompatActivity implements FavoriteL
 
     @Override
     public void setData(List<Article> articles) {
-        articleList.addAll(articles);
-        articleAdapter.notifyDataSetChanged();
+        articleAdapter.setData(articles);
     }
 
     @Override
     public void removeItem(Article article) {
-        int position = articleList.indexOf(article);
-
-        articleList.remove(position);
-        articleAdapter.notifyItemRemoved(position);
+        articleAdapter.removeArticle(article);
     }
 
     @Override

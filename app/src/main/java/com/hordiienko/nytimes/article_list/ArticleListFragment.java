@@ -19,7 +19,6 @@ import com.hordiienko.nytimes.R;
 import com.hordiienko.nytimes.adapter.ArticleAdapter;
 import com.hordiienko.nytimes.model.Article;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -43,7 +42,6 @@ public class ArticleListFragment extends Fragment implements ArticleListContract
     private Unbinder unbinder;
 
     private boolean viewCreated;
-    private List<Article> articleList;
     private ArticleAdapter articleAdapter;
     private ArticleListContract.Presenter articleListPresenter;
 
@@ -69,8 +67,7 @@ public class ArticleListFragment extends Fragment implements ArticleListContract
             apiType = Constants.ApiType.values()[0].getName();
         }
 
-        articleList = new LinkedList<>();
-        articleAdapter = new ArticleAdapter(getContext(), articleList, this);
+        articleAdapter = new ArticleAdapter(getContext(), this);
 
         articleListPresenter = new ArticleListPresenter(getContext(), this);
     }
@@ -132,9 +129,7 @@ public class ArticleListFragment extends Fragment implements ArticleListContract
 
     @Override
     public void updateItem(Article article) {
-        int position = articleList.indexOf(article);
-
-        articleAdapter.notifyItemChanged(position);
+        articleAdapter.updateArticle(article);
     }
 
     @Override
@@ -146,14 +141,12 @@ public class ArticleListFragment extends Fragment implements ArticleListContract
     public void setData(List<Article> articles) {
         swipeRefreshLayout.setRefreshing(false);
 
-        articleList.clear();
-        appendData(articles);
+        articleAdapter.setData(articles);
     }
 
     @Override
     public void appendData(List<Article> articles) {
-        articleList.addAll(articles);
-        articleAdapter.notifyDataSetChanged();
+        articleAdapter.appendData(articles);
     }
 
     @Override
