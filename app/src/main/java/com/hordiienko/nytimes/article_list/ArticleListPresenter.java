@@ -15,6 +15,7 @@ import io.reactivex.Single;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class ArticleListPresenter implements ArticleListContract.Presenter {
     private static final int PAGE_SIZE = 20;
@@ -114,7 +115,7 @@ public class ArticleListPresenter implements ArticleListContract.Presenter {
             return articles;
         }));
 
-        singleFinal.observeOn(AndroidSchedulers.mainThread()).subscribe(articleObserver);
+        singleFinal.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(articleObserver);
     }
 
     private void endLoading() {

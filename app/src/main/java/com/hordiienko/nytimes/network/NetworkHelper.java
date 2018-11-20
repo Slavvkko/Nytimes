@@ -8,7 +8,6 @@ import java.util.List;
 
 import io.reactivex.Single;
 import io.reactivex.exceptions.Exceptions;
-import io.reactivex.schedulers.Schedulers;
 
 public class NetworkHelper {
     private static NetworkHelper instance;
@@ -35,7 +34,6 @@ public class NetworkHelper {
                     } else {
                         return Arrays.asList(articleResponse.getArticles());
                     }
-                })
-                .subscribeOn(Schedulers.io());
+                });
     }
 }

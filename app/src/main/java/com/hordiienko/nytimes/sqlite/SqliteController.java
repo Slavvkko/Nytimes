@@ -8,8 +8,6 @@ import com.hordiienko.nytimes.model.Article;
 import java.util.List;
 
 import io.reactivex.Single;
-import io.reactivex.SingleOnSubscribe;
-import io.reactivex.schedulers.Schedulers;
 
 public class SqliteController {
     private SqliteHelper sqliteHelper;
@@ -35,6 +33,6 @@ public class SqliteController {
     }
 
     public Single<List<Article>> getFavoriteArticles() {
-        return Single.create((SingleOnSubscribe<List<Article>>) emitter -> emitter.onSuccess(sqliteHelper.getArticles())).subscribeOn(Schedulers.io());
+        return Single.create(emitter -> emitter.onSuccess(sqliteHelper.getArticles()));
     }
 }
