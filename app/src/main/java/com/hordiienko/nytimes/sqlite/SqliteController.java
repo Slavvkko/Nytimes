@@ -10,9 +10,19 @@ import java.util.List;
 import io.reactivex.Single;
 
 public class SqliteController {
+    private static SqliteController instance;
+
     private SqliteHelper sqliteHelper;
 
-    public SqliteController(Context context) {
+    public static void init(Context context) {
+        instance = new SqliteController(context);
+    }
+
+    public static SqliteController getInstance() {
+        return instance;
+    }
+
+    private SqliteController(Context context) {
         sqliteHelper = new SqliteHelper(context);
     }
 

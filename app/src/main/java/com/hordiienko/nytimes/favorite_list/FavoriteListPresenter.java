@@ -21,7 +21,7 @@ public class FavoriteListPresenter implements FavoriteListContract.Presenter {
 
     public FavoriteListPresenter(Context context, FavoriteListContract.View view) {
         favoriteListView = view;
-        sqliteController = new SqliteController(context);
+        sqliteController = SqliteController.getInstance();
     }
 
 

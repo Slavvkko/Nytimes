@@ -34,7 +34,7 @@ public class ArticleListPresenter implements ArticleListContract.Presenter {
         this.context = context;
         articleListView = view;
 
-        sqliteController = new SqliteController(context);
+        sqliteController = SqliteController.getInstance();
     }
 
     @Override
