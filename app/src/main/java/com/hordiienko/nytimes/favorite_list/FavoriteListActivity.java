@@ -49,7 +49,7 @@ public class FavoriteListActivity extends AppCompatActivity implements FavoriteL
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(articleAdapter);
 
-        favoriteListPresenter = new FavoriteListPresenter(this, this);
+        favoriteListPresenter = new FavoriteListPresenter(this);
 
         favoriteListPresenter.onViewReady();
     }

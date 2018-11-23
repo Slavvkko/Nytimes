@@ -1,4 +1,4 @@
-package com.hordiienko.nytimes.sqlite;
+package com.hordiienko.nytimes.db.sqlite;
 
 import android.provider.BaseColumns;
 

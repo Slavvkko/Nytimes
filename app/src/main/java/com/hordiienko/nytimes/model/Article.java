@@ -2,13 +2,20 @@ package com.hordiienko.nytimes.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import java.util.Objects;
 
-public class Article implements Parcelable {
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+import io.realm.annotations.Required;
+
+public class Article extends RealmObject implements Parcelable {
     private boolean isFavorite;
 
+    @Required
+    @PrimaryKey
     private String url;
     private String title;
     private String description;
@@ -16,6 +23,9 @@ public class Article implements Parcelable {
 
     @Nullable
     private String image;
+
+    public Article() {
+    }
 
     public Article(String url, String title, String description, String date, @Nullable String image) {
         this.url = url;
@@ -58,6 +68,7 @@ public class Article implements Parcelable {
         this.image = image;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "date=" + date +

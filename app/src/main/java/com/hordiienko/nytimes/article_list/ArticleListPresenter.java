@@ -1,11 +1,12 @@
 package com.hordiienko.nytimes.article_list;
 
-import android.content.Context;
 import android.widget.ImageView;
 
+import com.hordiienko.nytimes.App;
+import com.hordiienko.nytimes.db.DataBase;
 import com.hordiienko.nytimes.model.Article;
 import com.hordiienko.nytimes.network.NetworkHelper;
-import com.hordiienko.nytimes.sqlite.SqliteController;
+import com.hordiienko.nytimes.db.realm.RealmService;
 import com.hordiienko.nytimes.utils.ImageSaveHelper;
 
 import java.util.List;
@@ -20,21 +21,19 @@ import io.reactivex.schedulers.Schedulers;
 public class ArticleListPresenter implements ArticleListContract.Presenter {
     private static final int PAGE_SIZE = 20;
 
-    private Context context;
     private ArticleListContract.View articleListView;
     private Disposable disposable;
-    private SqliteController sqliteController;
+    private DataBase db;
 
     private int loadedCount;
     private boolean isProgressShow;
     private boolean isFooterProgressShow;
     private boolean isLoading;
 
-    public ArticleListPresenter(Context context, ArticleListContract.View view) {
-        this.context = context;
+    public ArticleListPresenter(ArticleListContract.View view) {
         articleListView = view;
 
-        sqliteController = SqliteController.getInstance();
+        db = RealmService.getInstance();
     }
 
     @Override
@@ -67,10 +66,10 @@ public class ArticleListPresenter implements ArticleListContract.Presenter {
         if (!article.isFavorite()) {
             article.setFavorite(true);
 
-            String imageFile = ImageSaveHelper.saveImage(context, thumb);
+            String imageFile = ImageSaveHelper.saveImage(App.getInstance(), thumb);
             article.setImage(imageFile);
 
-            sqliteController.addArticleToFavorite(article);
+            db.addArticleToFavorite(article);
 
         } else {
             article.setFavorite(false);
@@ -79,7 +78,7 @@ public class ArticleListPresenter implements ArticleListContract.Presenter {
                 ImageSaveHelper.deleteImage(article.getImage());
             }
 
-            sqliteController.removeArticleFromFavorite(article);
+            db.removeArticleFromFavorite(article);
         }
 
         articleListView.updateItem(article);
@@ -98,9 +97,9 @@ public class ArticleListPresenter implements ArticleListContract.Presenter {
         isLoading = true;
 
         Single<List<Article>> singleNetwork = NetworkHelper.getInstance().getArticles(articleListView.getApiType(), loadedCount / PAGE_SIZE * PAGE_SIZE);
-        Single<List<Article>> singleSqlite = sqliteController.getFavoriteArticles();
+        Single<List<Article>> singleRealm = db.getFavoriteArticles();
 
-        Single<List<Article>> singleFinal = Single.timer(1, TimeUnit.SECONDS).flatMap(aLong -> Single.zip(singleNetwork, singleSqlite, (articles, articles2) -> {
+        Single<List<Article>> singleFinal = Single.timer(1, TimeUnit.SECONDS).flatMap(aLong -> Single.zip(singleNetwork, singleRealm, (articles, articles2) -> {
             for (Article article : articles) {
                 for (Article article1 : articles2) {
                     if (article.equals(article1)) {

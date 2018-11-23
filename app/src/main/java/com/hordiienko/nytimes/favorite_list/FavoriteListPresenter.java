@@ -1,9 +1,8 @@
 package com.hordiienko.nytimes.favorite_list;
 
-import android.content.Context;
-
+import com.hordiienko.nytimes.db.DataBase;
 import com.hordiienko.nytimes.model.Article;
-import com.hordiienko.nytimes.sqlite.SqliteController;
+import com.hordiienko.nytimes.db.realm.RealmService;
 import com.hordiienko.nytimes.utils.ImageSaveHelper;
 
 import java.util.List;
@@ -17,11 +16,11 @@ public class FavoriteListPresenter implements FavoriteListContract.Presenter {
     private FavoriteListContract.View favoriteListView;
 
     private Disposable disposable;
-    private SqliteController sqliteController;
+    private DataBase db;
 
-    public FavoriteListPresenter(Context context, FavoriteListContract.View view) {
+    public FavoriteListPresenter(FavoriteListContract.View view) {
         favoriteListView = view;
-        sqliteController = SqliteController.getInstance();
+        db = RealmService.getInstance();
     }
 
 
@@ -37,7 +36,7 @@ public class FavoriteListPresenter implements FavoriteListContract.Presenter {
             ImageSaveHelper.deleteImage(article.getImage());
         }
 
-        sqliteController.removeArticleFromFavorite(article);
+        db.removeArticleFromFavorite(article);
         favoriteListView.removeItem(article);
     }
 
@@ -51,8 +50,8 @@ public class FavoriteListPresenter implements FavoriteListContract.Presenter {
     }
 
     private void loadData() {
-        Single<List<Article>> singleSqlite = sqliteController.getFavoriteArticles();
-        singleSqlite.observeOn(AndroidSchedulers.mainThread()).subscribe(articleObserver);
+        Single<List<Article>> singleRealm = db.getFavoriteArticles();
+        singleRealm.observeOn(AndroidSchedulers.mainThread()).subscribe(articleObserver);
     }
 
     private void endLoading() {

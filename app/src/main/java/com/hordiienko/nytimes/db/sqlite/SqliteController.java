@@ -1,15 +1,16 @@
-package com.hordiienko.nytimes.sqlite;
+package com.hordiienko.nytimes.db.sqlite;
 
 import android.content.ContentValues;
 import android.content.Context;
 
+import com.hordiienko.nytimes.db.DataBase;
 import com.hordiienko.nytimes.model.Article;
 
 import java.util.List;
 
 import io.reactivex.Single;
 
-public class SqliteController {
+public class SqliteController implements DataBase {
     private static SqliteController instance;
 
     private SqliteHelper sqliteHelper;
@@ -26,6 +27,7 @@ public class SqliteController {
         sqliteHelper = new SqliteHelper(context);
     }
 
+    @Override
     public void addArticleToFavorite(Article article) {
         ContentValues values = new ContentValues();
 
@@ -38,10 +40,12 @@ public class SqliteController {
         sqliteHelper.insertData(SqliteTable.TABLE_NAME, values);
     }
 
+    @Override
     public void removeArticleFromFavorite(Article article) {
         sqliteHelper.removeArticle(article.getUrl());
     }
 
+    @Override
     public Single<List<Article>> getFavoriteArticles() {
         return Single.create(emitter -> emitter.onSuccess(sqliteHelper.getArticles()));
     }

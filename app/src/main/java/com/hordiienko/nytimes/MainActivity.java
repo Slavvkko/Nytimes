@@ -38,8 +38,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        setSupportActionBar(toolbar);
 
+        initToolbar();
+        initDrawer();
+        initViewPager();
+    }
+
+    private void initToolbar() {
+        setSupportActionBar(toolbar);
+    }
+
+    private void initDrawer() {
         drawer = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
@@ -47,22 +56,6 @@ public class MainActivity extends AppCompatActivity {
                 .withOnDrawerItemClickListener(drawerItemClickListener)
                 .build();
 
-        viewPager.setAdapter(new ArticleListFragmentPagerAdapter(getSupportFragmentManager(), this));
-        tabs.setupWithViewPager(viewPager);
-
-        initDrawer();
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (drawer != null && drawer.isDrawerOpen()) {
-            drawer.closeDrawer();
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    private void initDrawer() {
         drawer.addItem(new PrimaryDrawerItem()
                 .withName(R.string.drawer_favorites)
                 .withIdentifier(favoriteId)
@@ -72,6 +65,20 @@ public class MainActivity extends AppCompatActivity {
                 .withSelectable(false)
         );
 
+    }
+
+    private void initViewPager() {
+        viewPager.setAdapter(new ArticleListFragmentPagerAdapter(getSupportFragmentManager(), this));
+        tabs.setupWithViewPager(viewPager);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawer != null && drawer.isDrawerOpen()) {
+            drawer.closeDrawer();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     private void startFavoriteActivity() {

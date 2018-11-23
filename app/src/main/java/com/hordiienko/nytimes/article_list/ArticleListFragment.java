@@ -69,7 +69,7 @@ public class ArticleListFragment extends Fragment implements ArticleListContract
 
         articleAdapter = new ArticleAdapter(getContext(), this);
 
-        articleListPresenter = new ArticleListPresenter(getContext(), this);
+        articleListPresenter = new ArticleListPresenter(this);
     }
 
     @Nullable
@@ -140,7 +140,6 @@ public class ArticleListFragment extends Fragment implements ArticleListContract
     @Override
     public void setData(List<Article> articles) {
         swipeRefreshLayout.setRefreshing(false);
-
         articleAdapter.setData(articles);
     }
 
