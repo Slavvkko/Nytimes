@@ -1,4 +1,4 @@
-package com.hordiienko.nytimes.article_list;
+package com.hordiienko.nytimes.ui.article_list;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;

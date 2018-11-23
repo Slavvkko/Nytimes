@@ -1,4 +1,4 @@
-package com.hordiienko.nytimes.favorite_list;
+package com.hordiienko.nytimes.ui.favorite_list;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,7 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.hordiienko.nytimes.R;
-import com.hordiienko.nytimes.adapter.ArticleAdapter;
+import com.hordiienko.nytimes.ui.adapter.ArticleAdapter;
 import com.hordiienko.nytimes.model.Article;
 
 import java.util.List;

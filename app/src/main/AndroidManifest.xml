@@ -20,7 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".favorite_list.FavoriteListActivity" />
+        <activity android:name=".ui.favorite_list.FavoriteListActivity" />
         <activity android:name=".ArticleActivity" />
     </application>
 
