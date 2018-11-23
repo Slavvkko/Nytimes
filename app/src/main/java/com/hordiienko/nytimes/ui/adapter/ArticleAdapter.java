@@ -1,4 +1,4 @@
-package com.hordiienko.nytimes.adapter;
+package com.hordiienko.nytimes.ui.adapter;
 
 import android.app.Activity;
 import android.app.ActivityOptions;

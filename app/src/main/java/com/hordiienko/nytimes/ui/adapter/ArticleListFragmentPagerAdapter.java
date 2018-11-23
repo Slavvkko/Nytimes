@@ -1,4 +1,4 @@
-package com.hordiienko.nytimes.adapter;
+package com.hordiienko.nytimes.ui.adapter;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.hordiienko.nytimes.Constants;
-import com.hordiienko.nytimes.article_list.ArticleListFragment;
+import com.hordiienko.nytimes.ui.article_list.ArticleListFragment;
 
 public class ArticleListFragmentPagerAdapter extends FragmentPagerAdapter {
     private Context context;

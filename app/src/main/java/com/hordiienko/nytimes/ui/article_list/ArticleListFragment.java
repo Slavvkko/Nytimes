@@ -1,4 +1,4 @@
-package com.hordiienko.nytimes.article_list;
+package com.hordiienko.nytimes.ui.article_list;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.hordiienko.nytimes.Constants;
 import com.hordiienko.nytimes.R;
-import com.hordiienko.nytimes.adapter.ArticleAdapter;
+import com.hordiienko.nytimes.ui.adapter.ArticleAdapter;
 import com.hordiienko.nytimes.model.Article;
 
 import java.util.List;

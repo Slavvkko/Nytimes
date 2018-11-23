@@ -1,4 +1,4 @@
-package com.hordiienko.nytimes.favorite_list;
+package com.hordiienko.nytimes.ui.favorite_list;
 
 import com.hordiienko.nytimes.model.Article;
 

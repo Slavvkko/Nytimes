@@ -9,8 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import com.hordiienko.nytimes.adapter.ArticleListFragmentPagerAdapter;
-import com.hordiienko.nytimes.favorite_list.FavoriteListActivity;
+import com.hordiienko.nytimes.ui.adapter.ArticleListFragmentPagerAdapter;
+import com.hordiienko.nytimes.ui.favorite_list.FavoriteListActivity;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
