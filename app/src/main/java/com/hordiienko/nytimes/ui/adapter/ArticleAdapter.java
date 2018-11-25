@@ -19,7 +19,7 @@ import com.hordiienko.nytimes.model.Article;
 import com.hordiienko.nytimes.utils.GlideApp;
 
 import java.io.File;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -42,7 +42,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         this.context = context;
         this.articleListener = articleListener;
 
-        articleList = new LinkedList<>();
+        articleList = new ArrayList<>();
     }
 
     @NonNull
